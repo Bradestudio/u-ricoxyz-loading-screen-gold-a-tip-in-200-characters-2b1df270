@@ -12,6 +12,11 @@ ENTRY = (
     "Congratulations \u2014 the bug has been promoted to a feature."
 )
 
+# The gate refuses anything outside 1-200 characters or more than one line,
+# so fail loudly here instead of shipping an invalid entry.
+assert 1 <= len(ENTRY) <= 200, "entry must be 1-200 characters"
+assert "\n" not in ENTRY, "entry must be a single line"
+
 
 def main():
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
